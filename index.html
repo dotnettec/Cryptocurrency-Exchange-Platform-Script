@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="assets/vendor/bootstrap.min.css" />
+	<!-- Ranking Stylesheet -->
+	<link rel="stylesheet" type="text/css" href="assets/css/default.css" />
+	<link rel="stylesheet" type="text/css" href="assets/vendor/select2.min.css" />
+    <title>Cryptocurrency Exchange Platform Script - BITCOIN, ALTCOIN, ETHEREUM</title>
+</head>
+<body>
+
+	<!-- Ranking Wrap -->
+	<div id="crypto-ranking" class="CCWE-ranking container">
+
+		<!-- Loader Effect -->
+		<div class="CCWE-loading hidden">
+			<div class="CCWE-loader">
+				<div class="triangles">
+					<div class="tri invert"></div>
+					<div class="tri invert"></div>
+					<div class="tri"></div>
+					<div class="tri invert"></div>
+					<div class="tri invert"></div>
+					<div class="tri"></div>
+					<div class="tri invert"></div>
+					<div class="tri"></div>
+					<div class="tri invert"></div>
+				</div>
+			</div>
+			<div class="CCWE-loaderBar"></div>
+		</div>
+		
+		<!-- Ranking -->
+		<div class="ranking hidden">
+	
+			<!-- Header -->
+			<div class="row header">
+				<div class="col-md-9 statistics">
+					<!-- Statistics get loaded in here -->
+				</div>
+				<div class="col-md-3 text-right">
+					<!-- Currency Dropdown -->
+					<select class="dropdown-menu currencies float-left pull-left" aria-labelledby="currencyMenuButton">
+						
+					</select>
+					<input type="hidden" value="1" class="change-rate" />
+				</div>
+			</div>
+			
+			<!-- Search -->
+			<input class="search" type="text" placeholder="Search Currencies" />
+			
+			<!-- Columns -->
+			<div class="row columns">
+				<div class="col-md-3 sort" data-sort="name">Name</div>
+				<div class="col-md-2 sort" data-sort="marketcap">Marketcap</div>
+				<div class="col-md-2 sort" data-sort="price">Price</div>
+				<div class="col-md-2 sort" data-sort="volume">Volume</div>
+				<div class="col-md-1 sort" data-sort="change">24hr</div>
+				<div class="col-md-2">7 Day</div>
+			</div>
+			
+			<!-- Tokens get loaded into this Container -->
+			<div class="list"></div>
+			
+			<!-- Pagination -->
+			<ul class="pagination"></ul>
+			
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+	
+		var CCWE = {
+		
+			/* Define the ID for the Ranking-Element */
+			ID: "crypto-ranking",
+			
+			/* Cookie warning (connecting to APIs) */
+			cookies: true,
+			cookies_message: "This site uses cookies. By continuing to browse the site, you are agreeing to our use of cookies.",
+			cookies_accept: "Accept",
+			cookies_more_info_text: "Find out more",
+			cookies_more_info_link: "http://dotnettec.com",
+			
+			/* Images */
+			images: false,
+			
+			/* Results each Page */
+			page: 20,
+			
+			/* Define Text-Blocks */
+			text: {
+				website: "Website",
+				explorer: "Explorer",
+				message: "Message",
+				source: "Source",
+				telegram: "Telegram",
+				twitter: "Twitter",
+				day1: "1 Day",
+				day7: "7 Day",
+				day30: "30 Day",
+				day365: "365 Day",
+				display_name: "Name",
+				supply: "Supply",
+				volume: "Volume",
+				volume24: "24h Volume",
+				cap24hrChange: "24h Change",
+				rank: "Rank",
+				price_btc: "BTC Price",
+				price_eth: "ETH Price",
+				price_ltc: "LTC Price",
+				market_cap: "Marketcap",
+				reddit_news: "News from Reddit",
+				more: "More",
+				btc_dominance: "BTC Dominance"
+			},	
+			
+			/* Define Websites for Tokens */
+			website: {
+				"BTC": "https://bitcoin.org/",
+				"ETH": "https://www.ethereum.org/",
+				"XRP": "https://ripple.com/",
+				"EOS": "https://eos.io/"
+			},
+			
+			/* Define Explorers for Tokens */
+			explorer: {
+				"BTC": "http://blockchain.info/",
+				"ETH": "https://etherscan.io/",
+				"XRP": "https://xrpcharts.ripple.com/#/graph/",
+				"EOS": "https://etherscan.io/token/EOS"
+			},
+			
+			/* Define Forums for Tokens */
+			message: {
+				"BTC": "https://bitcointalk.org/",
+				"ETH": "https://forum.ethereum.org/"
+			},
+			
+			/* Define Source-Code for Tokens */
+			source: {
+				"BTC": "https://github.com/bitcoin/",
+				"ETH": "https://github.com/ethereum",
+				"XRP": "https://github.com/ripple",
+				"EOS": "https://github.com/eosio",
+			},
+			
+			/* Define Telegram for Tokens */
+			telegram: {
+				"XRP": "https://t.me/Ripple",
+				"EOS": "https://t.me/EOSproject",
+			},
+			
+			/* Define Twitter for Tokens */
+			twitter: {
+				"BTC": "https://twitter.com/bitcoin",
+				"ETH": "https://twitter.com/ethereumproject",
+				"EOS": "https://twitter.com/eos_io"
+			},
+			
+			/* Define Reddit for Tokens */
+			reddit: {
+				"BTC": "https://www.reddit.com/r/Bitcoin/",
+				"ETH": "https://www.reddit.com/r/ethereum/",
+				"XRP": "https://www.reddit.com/r/Ripple",
+				"EOS": "https://www.reddit.com/r/eos/"
+			}
+			
+		}
+		
+	</script>
+	
+	<!-- Include JavaScripts -->
+	<script src="assets/vendor/jquery.min.js"></script>
+	<script src="assets/vendor/popper.min.js"></script>
+	<script src="assets/vendor/bootstrap.min.js"></script>
+	<script src="assets/vendor/list.min.js"></script>
+	<script src="assets/vendor/socket.io.slim.js"></script>
+	<script src="assets/vendor/chart/Chart.bundle.js"></script>
+    <script src="assets/vendor/chart/utils.js"></script>
+	<script defer src="assets/vendor/all.js"></script>
+	<script defer src="assets/vendor/select2.min.js"></script>
+
+	<!-- Include Ranking JavaScript -->
+	<script src="assets/js/index.js"></script>
+
+</body>
+</html>
